@@ -5,6 +5,7 @@ import { storeLikedArtistAction, getLikedArtistsAction } from '../actions/RailsA
 import {connect} from 'react-redux'
 import { bindActionCreators } from 'redux'
 import ShowArtist from './ShowArtist'
+import InitialDirections from './InitialDirections'
 import '../App.css';
 import ShowSongs from './ShowSongs'
 import ReactDOM from 'react-dom';
@@ -17,7 +18,7 @@ class SwipeArtist extends React.Component {
   constructor(){
     super()
     this.state = {
-      songPlaying: ""
+      showSwipePage: false
     }
 
     this.handleNahArtist = this.handleNahArtist.bind(this)
@@ -87,21 +88,28 @@ class SwipeArtist extends React.Component {
     this.props.removeSongsState()
   }
 
+  handleShowSwipeComponents(event){
+    this.props.
+  }
+
   render() {
 
     let songName = this.props.songPlaying
-
     var songsBar;
-
     if(this.props.songs.songs){
       songsBar = this.props.songs.songs.map((song)=>{
         return< ShowSongs songs={this.props.songs.songs} song={song} handleShowSongName={this.handleShowSongName}/>
       })
     }
-// add a focus event, perhaps it has to be on input or checkbox
-// listening for every keydown, and checking the key code.
-    return (
-      <div id='coverFlowDiv'>
+
+    function swipePage(swipePage){
+    if(swipePage === false || swipePage === null){
+      debugger
+      return < InitialDirections handleShowSwipeComponents={this.handleShowSwipeComponents} />
+    }
+    else if (swipePage === true){
+      debugger
+      return <div id='coverFlowDiv'>
         <NavBar />
         <span id='divFocus' ref='divFocus' tabIndex="0" onKeyDown={this.handleOnKeyDown.bind(this)} >
           <ShowArtist handleNahArtist={this.handleNahArtist}
@@ -112,12 +120,18 @@ class SwipeArtist extends React.Component {
             </div>
         </span>
       </div>
+    }}
+
+// add a focus event, perhaps it has to be on input or checkbox
+// listening for every keydown, and checking the key code.
+    return (
+      <div>{swipePage(this.props.swipePage)}</div>
     );
   }
 }
 
 function mapStateToProps(state){
-  return {songPlaying: state.songPlaying,  songs: state.songs, swipeArtist: state.swipeArtist, likedArtists: state.likedArtists, nahArtists: state.nahArtists, user: state.user}
+  return {swipePage: state.swipePage, songPlaying: state.songPlaying,  songs: state.songs, swipeArtist: state.swipeArtist, likedArtists: state.likedArtists, nahArtists: state.nahArtists, user: state.user}
 }
 
 function mapDispatchToProps(dispatch){

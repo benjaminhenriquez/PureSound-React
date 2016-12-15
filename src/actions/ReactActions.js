@@ -129,6 +129,12 @@ export function disappearName(songs){
   }
 }
 
+export function showPage(){
+  return function(dispatch){
+    dispatch({type: 'SWIPE_PAGE'})
+  }
+}
+
 export function logoutUser(){
   return function (dispatch) {
     dispatch({type: 'LOGOUT_USER'})

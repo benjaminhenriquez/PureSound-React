@@ -85,8 +85,17 @@ function reducerSongPlaying(state="", action) {
   }
 }
 
+function reducerSwipePage(state = false, action){
+  switch (action.type){
+    case 'SWIPE_PAGE':
+      return state - action.payload
+    default:
+      return state
+  }
+}
+
 const appReducer = combineReducers({
-  songPlaying: reducerSongPlaying, user: reducerUser, likedArtists: reducerLikedArtists, swipeArtist: reducerSwipeArtist, songs: reducerSongs, initialArtist: reducerInitialArtist, yesArtists: reducerYesArtists, nahArtists: reducerNahArtists, audio: audioReducer
+  swipePage: reducerSwipePage, songPlaying: reducerSongPlaying, user: reducerUser, likedArtists: reducerLikedArtists, swipeArtist: reducerSwipeArtist, songs: reducerSongs, initialArtist: reducerInitialArtist, yesArtists: reducerYesArtists, nahArtists: reducerNahArtists, audio: audioReducer
 })
 
 const rootReducer = (state, action) => {
